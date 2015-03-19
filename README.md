@@ -3,4 +3,6 @@
 ```
 # Setup brew
 ./brew.sh
+# Setup sane OSX defaults
+./osx.sh
 ```
