@@ -41,8 +41,8 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.709800 0.835300 1.0
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
-# Always show scrollbars
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+# Show scrollbar when scrolling
+defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 
 # Increase window resize speed for Cocoa applications
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
