@@ -42,3 +42,7 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # Setup rbenv
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/shims:$PATH"
+
+# Easy dir swapping for projects
+test -e ~/projects/me && export CDPATH=.:$CDPATH:~/projects/me
+test -e ~/projects/work && export CDPATH=.:$CDPATH:~/projects/work
