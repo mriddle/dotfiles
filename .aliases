@@ -10,7 +10,6 @@ alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
-alias g="git"
 
 # List all files colorized in long format
 alias l="ls -lF -G"
@@ -57,3 +56,59 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+###############################################################################
+# Git                                                                         #
+###############################################################################
+
+# add
+alias ga='git add'                           # add
+
+# branch
+alias gb='git branch -v'                     # branch (verbose)
+
+# commit
+alias gc='git commit'                        # commit with message
+alias gca='git commit -am'                   # commit all with message
+alias gcm='git commit -m'                    # commit with message
+alias gc-a='git commit --amend'              # ammend your last commit
+
+# checkout
+alias gco='git checkout'                     # checkout
+alias gnb='git checkout -b'                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
+
+# cherry-pick
+alias gcp='git cherry-pick -x'               # grab a change from a branch
+
+# diff
+alias gd='git diff'                          # diff unstaged changes
+alias gdc='git diff --cached'                # diff staged changes
+
+# log
+alias gl='git log --graph --date=short'
+alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+
+# pull
+alias gpl='git pull'                         # pull
+
+# push
+alias gps='git push'                         # push
+
+# rebase
+alias grc='git rebase --continue'            # continue rebase
+alias grs='git rebase --skip'                # skip rebase
+
+# remote
+alias gr='git remote -v'                     # show remotes (verbose)
+
+# stash
+alias gss='git stash'                        # stash changes
+alias gsl='git stash list'                   # list stashes
+alias gsp='git stash pop'                    # pop changes (restore & remove)
+alias gsa='git stash apply'                  # apply stash (restore changes)
+alias gsd='git stash drop'                   # drop stashes (destory changes)
+
+# status
+alias gs='git status'                        # status
+alias gst='git status'                       # status
+alias gstat='git status'                     # status
