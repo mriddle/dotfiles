@@ -68,7 +68,7 @@ alias ga='git add'                           # add
 alias gb='git branch -v'                     # branch (verbose)
 
 # commit
-alias gc='git commit'                        # commit with message
+alias gc='git commit -v'                     # commit with message
 alias gca='git commit -am'                   # commit all with message
 alias gcm='git commit -m'                    # commit with message
 alias gc-a='git commit --amend'              # ammend your last commit
