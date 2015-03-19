@@ -1,2 +1,6 @@
-# dotfiles
-.files and sensible defaults for OSX
+### Opinionated setup for mriddle
+
+```
+# Setup brew
+./brew.sh
+```
