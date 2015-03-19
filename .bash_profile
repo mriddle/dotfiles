@@ -38,3 +38,7 @@ complete -W "NSGlobalDomain" defaults;
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal" killall;
+
+# Setup rbenv
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/shims:$PATH"
