@@ -93,6 +93,7 @@ alias gpl='git pull'                         # pull
 
 # push
 alias gps='git push'                         # push
+alias gpsu='git push -u origin HEAD'         # git push & set upstream to origin master
 
 # rebase
 alias grc='git rebase --continue'            # continue rebase
