@@ -10,4 +10,6 @@ brew install bash-completion
 
 brew install rbenv rbenv-gem-rehash ruby-build
 
+brew install postgres
+
 brew cleanup
