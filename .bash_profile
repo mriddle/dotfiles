@@ -3,7 +3,7 @@ export PATH="$HOME/bin:$PATH";
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
-for file in ~/.{bash_prompt,exports,aliases}; do
+for file in ~/.{bashrc,bash_prompt,exports,aliases}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -46,3 +46,5 @@ export PATH="$HOME/.rbenv/shims:$PATH"
 # Easy dir swapping for projects
 test -e ~/projects/me && export CDPATH=.:$CDPATH:~/projects/me
 test -e ~/projects/work && export CDPATH=.:$CDPATH:~/projects/work
+
+eval "$(hub alias -s)"

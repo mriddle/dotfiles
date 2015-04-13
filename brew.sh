@@ -3,6 +3,7 @@
 brew update
 brew upgrade
 
+brew install hub
 brew install ack
 brew install git
 brew install bash
