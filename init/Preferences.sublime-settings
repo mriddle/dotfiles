@@ -1,8 +1,8 @@
 {
-	"color_scheme": "Packages/Monokai Extended/Monokai Extended Bright.tmTheme",
 	"default_encoding": "UTF-8",
 	"detect_indentation": false,
 	"draw_white_space": "all",
+	"ensure_newline_at_eof_on_save": true,
 	"file_exclude_patterns":
 	[
 		".DS_Store",
@@ -16,9 +16,12 @@
 	"folder_exclude_patterns":
 	[
 		".git",
-		"node_modules"
+		"node_modules",
+		"coverage",
+		"tmp",
+		"public"
 	],
-	"font_size": 13,
+	"font_size": 14,
 	"highlight_line": true,
 	"hot_exit": false,
 	"line_padding_bottom": 5,
@@ -30,10 +33,10 @@
 		103
 	],
 	"show_encoding": true,
+	"show_full_path": true,
 	"show_line_endings": true,
 	"tab_size": 2,
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
-	"ensure_newline_at_eof_on_save": true,
 	"word_wrap": false
 }
