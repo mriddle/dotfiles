@@ -113,3 +113,14 @@ alias gsd='git stash drop'                   # drop stashes (destory changes)
 alias gs='git status'                        # status
 alias gst='git status'                       # status
 alias gstat='git status'                     # status
+
+
+###############################################################################
+# Development                                                                 #
+###############################################################################
+
+function be {
+  bundle exec "$@";
+}
+
+alias rmod='rspec `git ls-files --modified --others spec`'
