@@ -3,10 +3,17 @@ export PATH="$HOME/bin:$PATH";
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
-for file in ~/.{bashrc,bash_prompt,exports,aliases}; do
+for file in ~/.{bashrc,exports,aliases}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
+
+if [ -z "$PS1" ]; then
+  # This shell is not interactive
+  return;
+else
+  [ -r ~/.bash_prompt ] && [ -f ~/.bash_prompt ] && source ~/.bash_prompt;
+fi
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
