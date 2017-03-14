@@ -65,7 +65,8 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias ga='git add'                           # add
 
 # branch
-alias gb='git branch -v'                     # branch (verbose)
+alias gb='git branch --sort=-committerdate | head -n 5' # Last 5 branches ordered recent commits
+alias gbv='git branch -v'                     # branch (verbose)
 
 # commit
 alias gc='git commit -v'                     # commit with message
