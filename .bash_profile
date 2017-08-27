@@ -13,6 +13,14 @@ mp4togif(){
     convert -delay 5 -layers Optimize -loop 0 - "$2"
 }
 
+gcob() {
+  local format branch branches
+  format="%(committerdate:relative)\\%(color:green)%(refname:short)%(color:reset)\\%(HEAD)\\%(color:yellow)%(objectname:short)%(color:reset) %(upstream:trackshort)\\%(contents:subject)"
+  branches=$(git for-each-ref --format="$format" --sort=-committerdate refs/heads/ | column -t -s "\\") &&
+  branch=$(echo "$branches" | fzf --ansi --height=30) &&
+  git checkout $(echo "$branch" | awk '{print $4}')
+}
+
 if [ -z "$PS1" ]; then
   # This shell is not interactive
   return;
