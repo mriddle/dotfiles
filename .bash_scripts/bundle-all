@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Runs the given *bundler command* against all gemfiles in the repository.
+# Usage e.g. `bundle-all lock` or `bundle-all install --local`
+export BUNDLE_CMD=$@
+find . -type f -maxdepth 2 -iname '*gemfile*' | \
+  grep -v '.lock$' | \
+  xargs -L1 -I % sh -c 'BUNDLE_GEMFILE="%" bundle $BUNDLE_CMD'
+  # xargs -P10 -L1 -I % sh -c 'BUNDLE_GEMFILE="%" bundle $BUNDLE_CMD'

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Unpack the currently used version of one named gem to `vendor/gems/` and
+# change the Gemfile to now bundle using this local version.
+
+if [[ -z $1 || $1 == '-h' || $1 == 'help' ]]; then
+  echo 'Command takes one argument: the name of a gem.'
+  exit 1
+fi
+
+bundle check
+
+GREPPED=$(bundle show | grep "* $1 (")
+GEM_NAME=$(echo "$GREPPED" | awk '{print $2}')
+GEM_VERSION=$(echo "$GREPPED" | awk '{print $3}' | sed 's/[()]//g')
+
+if [[ -z $GEM_NAME || -z $GEM_VERSION ]]; then
+  echo "Error: Found no gem named '$1'."
+  exit 1
+fi
+
+mkdir -p vendor/gems
+
+echo "Unpacking $GEM_NAME version $GEM_VERSION to vendor/gems/$GEM_NAME-$GEM_VERSION/"
+gem unpack --silent $GEM_NAME -v $GEM_VERSION --target vendor/gems
+
+pushd vendor/gems/$GEM_NAME-$GEM_VERSION > /dev/null
+  gem unpack --silent $GEM_NAME -v $GEM_VERSION --spec
+popd > /dev/null
+
+echo "Changing Gemfile"
+
+if grep -q "gem '$GEM_NAME'.*" Gemfile; then
+  sed -i '' "s/gem '$GEM_NAME'.*/gem '$GEM_NAME', path: 'vendor\/gems\/$GEM_NAME-$GEM_VERSION\/'/" Gemfile
+else
+  echo "gem '$GEM_NAME', path: 'vendor/gems/$GEM_NAME-$GEM_VERSION/'" >> Gemfile
+fi

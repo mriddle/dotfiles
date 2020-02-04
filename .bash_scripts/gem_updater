@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+# Run this after staging the changes to create a commit with version comparison
+
+require 'bundler/inline'
+gemfile do
+  source 'https://rubygems.org'
+  gem 'gemdiff'
+end
+def gems_by_status(status)
+  fail unless %w(A D).include?(status)
+  lines = `git diff @ --name-only --diff-filter=#{status}`.lines
+  lines.map do |line|
+    match = line.match %r{\Avendor/cache/(.*)\-([\d.]+(\.(alpha|beta|pre|rc)-?\d*)?)\.gem\n\z}
+    if match.nil?
+      warn("No match for #{line.strip}")
+      next
+    end
+    { name: match[1], version: match[2] }
+  end.compact
+end
+added_gems = gems_by_status('A')
+removed_gems = gems_by_status('D')
+compare_urls = added_gems.map do |added_gem|
+  print '.'
+  name = added_gem[:name]
+  new_version = added_gem[:version]
+  removed_gem = removed_gems.find { |gem| gem[:name] == name }
+  if removed_gem.nil?
+    next "New gem: #{name}"
+  end
+  old_version = removed_gem[:version]
+  url_finder = Gemdiff::OutdatedGem.new(name, old_version, new_version)
+  url_finder.compare_url
+end
+description = compare_urls.map { |url| " - #{url}" }.sort.join("\n")
+message = "Upgraded gems\n\n#{description}"
+`git commit -m '#{message}'`
+puts
+puts message

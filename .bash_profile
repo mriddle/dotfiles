@@ -1,6 +1,9 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
+# Add bash_scripts to the `$PATH`
+export PATH="$PATH:$HOME/.bash_scripts"
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 for file in ~/.{bashrc,exports,aliases}; do
