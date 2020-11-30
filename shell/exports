@@ -1,5 +1,7 @@
-# Make vim the default editor.
-export EDITOR='subl -w';
+#!/usr/bin/env zsh
+
+# Set VS Code as default editor
+export EDITOR='code --wait'
 
 # Increase Bash history size. Allow 32³ entries; the default is 500.
 export HISTSIZE='32768';
