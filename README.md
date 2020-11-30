@@ -3,8 +3,8 @@
 ```bash
 # Setup brew
 ./brew.sh
-# Setup sane OSX defaults
-./osx.sh
+# Setup sensible MacOS defaults
+./macos.sh
 # Copy over config, aliases etc
 ./bootstrap.sh
 ```
