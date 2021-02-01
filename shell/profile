@@ -3,6 +3,9 @@
 # Add scripts to the `$PATH`
 export PATH="$PATH:$HOME/.shell/scripts"
 
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 for file in ~/.{bashrc,exports,aliases}; do
