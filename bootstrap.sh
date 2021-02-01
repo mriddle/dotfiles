@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-cp -R shell/ ~/.shell/
-cp .gitconfig ~/.gitconfig
-cp .gitignore ~/.gitignore
+ln -s $PWD/shell/ ~/.shell
+ln -s $PWD/.gitconfig ~/.gitconfig
+ln -s $PWD/.gitignore ~/.gitignore
 
 echo "Add the following to your ~/.zshrc:"
 echo "
