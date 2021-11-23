@@ -56,7 +56,7 @@
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
 [user]
-	name = mriddle
+	name = Matthew Riddle
 	email = mriddle89@gmail.com
 
 [hub]
