@@ -2,6 +2,9 @@
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# One-off load, bootstrap.sh will take care of it going forward
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 brew update
 brew upgrade
 
