@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Load homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Add scripts to the `$PATH`
 export PATH="$PATH:$HOME/.shell/scripts"
 
