@@ -6,7 +6,7 @@ ln -s $PWD/.gitignore ~/.gitignore
 
 echo "Add the following to your ~/.zshrc:"
 echo "
-# Executed for 
+# Executed for
 # ✓ login shell
 # ✓ interactive shell
 # ✘ scripts
@@ -16,4 +16,5 @@ source ~/.shell/prompt
 source ~/.shell/aliases
 source ~/.shell/profile
 source ~/.shell/exports
+source ~/.shell/private
 "
