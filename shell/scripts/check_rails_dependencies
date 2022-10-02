@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+require 'bundler/setup'
+require 'optparse'
+require 'rainbow'
+require 'set'
+
+class RailsBumpHelper
+  RAILS_DEPENDENCIES = ["actioncable", "actionmailbox", "actionmailer", "actionpack", "actiontext", "actionview", "activejob", "activemodel", "activerecord", "activestorage", "activesupport", "railties", "rails"]
+
+  def initialize(verbose: false, version:)
+    @target_version = ::Gem::Version.create(version)
+    @verbose = verbose
+    @gems_using_rails = Set.new
+    @application_dependencies = Bundler.locked_gems.dependencies
+  end
+
+  def run!
+    @gems_using_rails = Set.new
+    application_dependencies.each do |name, dependency|
+      puts "Gem: #{name}" if verbose?
+      dependency.to_spec.traverse do |current_spec, dep, dep_spec, trail|
+        # If this gem uses something that's part of rails then add it (and its parents) to the list
+        puts "Tree: #{trail.map(&:name)}" if verbose?
+        if dep_spec.runtime_dependencies.map(&:name).any? { |dep_name| part_of_rails?(dep_name) }
+          trail.each { |d| gems_using_rails << d unless part_of_rails?(d.name) }
+        end
+      end
+    end
+    self
+  end
+
+  def what_needs_upgrading?
+    gems_with_runtime_rails_dependencies = {}
+
+    gems_using_rails.sort.each do |gem|
+      rails_deps = gem.runtime_dependencies.select { |dep| part_of_rails?(dep.name) }
+      gems_with_runtime_rails_dependencies[gem] = rails_deps if rails_deps.any?
+    end
+
+    puts "-"*30
+    puts "#{gems_with_runtime_rails_dependencies.size} dependencies using Rails"
+    puts "-"*30
+
+    gems_with_runtime_rails_dependencies.each do |gem, rails_deps|
+
+      results = rails_deps.map do |dep|
+        dep.requirement.satisfied_by?(target_version)
+      end
+
+      if results.all?
+        puts Rainbow("YES, #{gem.name}, v#{gem.version}, #{dirname = File.basename(Dir.getwd)}, #{Time.now.strftime("%Y/%m/%d")}").green.bold
+      else
+        puts Rainbow("NO, #{gem.name}, v#{gem.version}, #{dirname = File.basename(Dir.getwd)}, #{Time.now.strftime("%Y/%m/%d")}").red.bold
+      end
+    end
+  end
+
+  private
+
+  attr_reader :application_dependencies, :gems_using_rails, :target_version
+
+  def part_of_rails?(name)
+    RAILS_DEPENDENCIES.include?(name)
+  end
+
+  def verbose?
+    @verbose
+  end
+end
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: check_all_dependencies.rb [options]"
+
+  opts.on("--verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+
+  opts.on("-v", "--version [VERSION]", "Verify dependencies satisfy given Rails version") do |version|
+    options[:version] = version
+  end
+end.parse!
+
+RailsBumpHelper.new(options).run!.what_needs_upgrading?
