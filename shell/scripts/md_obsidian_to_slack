@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+# This will take the contents of your paste buffer (using pbpaste),
+# adjust the markdown so it's suitable for Slack and add it back in (using pbcopy)
+#
+# Taken and modified from: https://gist.github.com/h6y3/ae3cbe58de6ab647e408e6a42ff2772d
+#
+file_data = `pbpaste`
+
+def pbcopy(input)
+  str = input.to_s
+  IO.popen('pbcopy', 'w') { |f| f << str }
+  str
+end
+
+# Upper case title
+re = /^#* .+/
+file_data.gsub!(re) { |match| "*#{match.upcase}*"}
+
+# Mutate todos
+file_data.gsub!("- [ ]","[ ] ")
+file_data.gsub!("* [ ]","[ ] ")
+
+# Substitute ** for *
+file_data.gsub!("**","*")
+
+# Remove #
+file_data.gsub!("\#\#\# ","")
+file_data.gsub!("\#\# ","")
+file_data.gsub!("\# ","")
+
+# Add bullets since Slack doesn't support bullets and add indentation because gsub doesn't support capture groups
+re = /^		- /
+file_data.gsub!(re,"		• ")
+
+re = /^	- /
+file_data.gsub!(re,"	• ")
+
+re = /^- /
+file_data.gsub!(re,"• ")
+
+# Remove mentions
+file_data.gsub!("[[","")
+file_data.gsub!("]]","")
+
+# Remove highlights
+file_data.gsub!("==","")
+
+# Reformat URLs and perserve checkboxes (e.g. [ ])
+file_data.gsub!(/(?!\[ \])\[(.*?)\]/) { "#{$1}: " }
+
+# Output
+# puts file_data
+pbcopy(file_data)
+
+
+
+
