@@ -3,6 +3,7 @@
 ln -s $PWD/shell/ ~/.shell
 ln -s $PWD/.gitconfig ~/.gitconfig
 ln -s $PWD/.gitignore ~/.gitignore
+ln -s $PWD/.irbrc ~/.irbrc
 
 echo "Add the following to your ~/.zshrc:"
 echo "
